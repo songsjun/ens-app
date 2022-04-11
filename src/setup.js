@@ -60,8 +60,7 @@ export const getProvider = async reconnect => {
       const { providerObject } = await setup({
         reloadOnAccountsChange: false,
         customProvider: 'http://localhost:8545',
-        // ensAddress: process.env.REACT_APP_E,
-        ensAddress: globalUtils.ENS_ADDRESS
+        ensAddress: process.env.REACT_APP_E
       })
       provider = providerObject
       let labels = window.localStorage['labels']
@@ -94,8 +93,7 @@ export const getProvider = async reconnect => {
     const { providerObject } = await setup({
       reloadOnAccountsChange: false,
       enforceReadOnly: true,
-      enforceReload: false,
-      ensAddress: globalUtils.ENS_ADDRESS
+      enforceReload: false
     })
     provider = providerObject
     return provider
@@ -113,8 +111,7 @@ export const getProvider = async reconnect => {
     const { providerObject } = await setup({
       reloadOnAccountsChange: false,
       enforceReadOnly: true,
-      enforceReload: false,
-      ensAddress: globalUtils.ENS_ADDRESS
+      enforceReload: false
     })
     provider = providerObject
     return provider
@@ -146,8 +143,7 @@ export const setWeb3Provider = async provider => {
     await setup({
       customProvider: provider,
       reloadOnAccountsChange: false,
-      enforceReload: true,
-      ensAddress: globalUtils.ENS_ADDRESS
+      enforceReload: true
     })
 
     networkIdReactive(networkId)

@@ -1,4 +1,5 @@
 import { setupENS } from '@ensdomains/ui'
+import { globalUtils } from 'globalUtils'
 import { isENSReadyReactive } from '../reactiveVars'
 
 const INFURA_ID =
@@ -24,9 +25,13 @@ export async function setup({
     customProvider,
     ensAddress
   }
+
+  option.ensAddress = globalUtils.ENS_ADDRESS
+
   if (enforceReadOnly) {
     option.infura = INFURA_ID
   }
+
   const {
     ens: ensInstance,
     registrar: registrarInstance,
