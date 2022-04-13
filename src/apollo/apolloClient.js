@@ -21,7 +21,7 @@ const endpoints = {
   '1': 'https://api.thegraph.com/subgraphs/name/ensdomains/ens',
   '3': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensropsten',
   // '4': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensrinkeby',
-  '4': 'https://localhost',
+  '4': 'https://graph.dns3.xyz/subgraphs/name/graphprotocol/ens',
   '5': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli'
 }
 

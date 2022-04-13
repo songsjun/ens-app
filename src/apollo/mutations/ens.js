@@ -26,11 +26,14 @@ export async function setup({
     ensAddress
   }
 
+  option.enforceReadOnly = false
   option.ensAddress = globalUtils.ENS_ADDRESS
 
   if (enforceReadOnly) {
     option.infura = INFURA_ID
   }
+
+  console.log('参数 option =', option)
 
   const {
     ens: ensInstance,
@@ -38,6 +41,9 @@ export async function setup({
     providerObject
   } = await setupENS(option)
   ens = ensInstance
+
+  console.log('结果 ens =', ens)
+
   registrar = registrarInstance
   ensRegistryAddress = ensAddress
   isENSReadyReactive(true)
