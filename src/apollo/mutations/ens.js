@@ -30,7 +30,7 @@ export async function setup({
     option.infura = INFURA_ID
   }
 
-  console.log('最终参数option', option)
+  console.error('最终参数option', option)
 
   const ensResult = await setupENS(option)
 

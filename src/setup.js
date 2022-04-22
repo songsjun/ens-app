@@ -82,13 +82,15 @@ export const getProvider = async reconnect => {
       return provider
     }
 
-    if (
-      window.localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') ||
-      reconnect
-    ) {
-      provider = await connect()
-      return provider
-    }
+    // if (
+    //   window.localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') ||
+    //   reconnect
+    // ) {
+    //   provider = await connect()
+    //   return provider
+    // }
+    provider = await connect()
+    return provider
 
     const { providerObject } = await setup({
       reloadOnAccountsChange: false,
