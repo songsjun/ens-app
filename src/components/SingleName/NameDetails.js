@@ -10,6 +10,8 @@ import NameRegister from './NameRegister'
 import SubDomains from './SubDomains'
 import dnssecmodes from '../../api/dnssecmodes'
 import DetailsContainer from './DetailsContainer'
+import { ensConfig } from 'ensConfig'
+import { globalUtils } from 'globalUtils'
 
 function NameDetails({
   domain,
@@ -63,15 +65,21 @@ function NameDetails({
   const outOfSync = dnssecmode && dnssecmode.outOfSync
   const isAnAbsolutePath = pathname.split('/').length > 3
 
-  if (domain.parent === 'eth' && tab === 'register' && !isAnAbsolutePath) {
+  let tld = globalUtils.getCurrentTld()
+
+  console.log(
+    '是否准备注册？',
+    domain.parent,
+    domain.parent === tld,
+    tab,
+    isAnAbsolutePath
+  )
+
+  if (domain.parent === tld && tab === 'register' && !isAnAbsolutePath) {
     return <Redirect to={`${pathname}/register`} />
-  } else if (
-    domain.parent === 'eth' &&
-    tab === 'details' &&
-    !isAnAbsolutePath
-  ) {
+  } else if (domain.parent === tld && tab === 'details' && !isAnAbsolutePath) {
     return <Redirect to={`${pathname}/details`} />
-  } else if (domain.parent !== 'eth' && !isAnAbsolutePath) {
+  } else if (domain.parent !== tld && !isAnAbsolutePath) {
     //subdomain or dns
     return <Redirect to={`${pathname}/subdomains`} />
   }

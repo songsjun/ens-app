@@ -1,4 +1,5 @@
 import { setupENS } from '@ensdomains/ui'
+import { globalUtils } from 'globalUtils'
 import { isENSReadyReactive } from '../reactiveVars'
 
 const INFURA_ID =
@@ -11,6 +12,7 @@ let ens = {},
   ensRegistryAddress = undefined
 
 export async function setup({
+  networkId,
   reloadOnAccountsChange,
   enforceReadOnly,
   enforceReload,
@@ -27,14 +29,26 @@ export async function setup({
   if (enforceReadOnly) {
     option.infura = INFURA_ID
   }
+
+  console.log('最终参数option', option)
+
+  const ensResult = await setupENS(option)
+
+  console.log('返回结果ensResult', ensResult)
+
   const {
     ens: ensInstance,
     registrar: registrarInstance,
+    network,
     providerObject
-  } = await setupENS(option)
+  } = ensResult
   ens = ensInstance
   registrar = registrarInstance
   ensRegistryAddress = ensAddress
+  globalUtils.currentChainId = network.chainId
+
+  console.log('network =', network)
+
   isENSReadyReactive(true)
   return { ens, registrar, providerObject }
 }

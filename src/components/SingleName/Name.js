@@ -16,6 +16,7 @@ import Tabs from './Tabs'
 import NameContainer from '../Basic/MainContainer'
 import Copy from '../CopyToClipboard/'
 import { isOwnerOfParentDomain } from '../../utils/utils'
+import { globalUtils } from 'globalUtils'
 
 const Owner = styled('div')`
   color: #ccd4da;
@@ -30,7 +31,7 @@ const RightBar = styled('div')`
 const Favourite = styled(DefaultFavourite)``
 
 function isRegistrationOpen(available, parent) {
-  return parent === 'eth' && available
+  return parent === globalUtils.getCurrentTld() && available
 }
 
 function isDNSRegistrationOpen(domain) {
@@ -87,6 +88,12 @@ function Name({ details: domain, name, pathname, type, refetch }) {
   const isOwnerOfParent = isOwnerOfParentDomain(domain, account)
   const isDeedOwner = domain.deedOwner === account
   const isRegistrant = !domain.available && domain.registrant === account
+
+  console.log(
+    'domain.available, domain.parent =',
+    domain.available,
+    domain.parent
+  )
 
   const registrationOpen = isRegistrationOpen(domain.available, domain.parent)
   const preferredTab = registrationOpen ? 'register' : 'details'

@@ -4,6 +4,7 @@ import { useTranslation, Trans } from 'react-i18next'
 import mq from 'mediaQuery'
 import EthVal from 'ethval'
 import DefaultInput from '../../Forms/Input'
+import { globalUtils } from 'globalUtils'
 const GWEI = 1000000000
 const COMMIT_GAS_WEI = 42000
 const REGISTER_GAS_WEI = 240000
@@ -64,6 +65,8 @@ const EthRegistrationGasPrice = ({ price, ethUsdPrice, gasPrice }) => {
   const gasPriceToGweiFast = new EthVal(`${gasPrice.fast}`).toGwei()
   const totalSlow = ethVal.add(registerGasSlow)
   const totalFast = ethVal.add(registerGasFast)
+  const currencySymbol = globalUtils.getCurrency()
+
   let totalInUsdSlow, totalInUsdFast
   // No price oracle on Goerli
   if (ethUsdPrice) {
@@ -73,8 +76,9 @@ const EthRegistrationGasPrice = ({ price, ethUsdPrice, gasPrice }) => {
   return (
     <PriceContainer>
       <TotalValue>
-        {ethVal.toFixed(3)} ETH + at most {registerGasFast.toFixed(3)} ETH gas
-        fee = at most {totalFast.toFixed(3)} ETH
+        {ethVal.toFixed(3)} {currencySymbol} + at most{' '}
+        {registerGasFast.toFixed(3)} {currencySymbol} gas fee = at most{' '}
+        {totalFast.toFixed(3)} {currencySymbol}
         {ethVal && ethUsdPrice && (
           <USD>
             {' '}

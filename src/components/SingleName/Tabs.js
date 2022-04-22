@@ -4,6 +4,7 @@ import styled from '@emotion/styled/macro'
 import { Link } from 'react-router-dom'
 
 import mq from 'mediaQuery'
+import { globalUtils } from 'globalUtils'
 
 const TabLink = styled(Link)`
   font-size: 14px;
@@ -43,8 +44,10 @@ const TabContainer = styled('div')`
   `}
 `
 function getDetailsActive(domain, pathname, tab) {
+  const tld = globalUtils.getCurrentTld()
+
   const { name } = domain
-  if (domain.parent !== 'eth') {
+  if (domain.parent !== tld) {
     return (
       pathname !== `/name/${name}/register` &&
       pathname !== `/name/${name}/subdomains`
@@ -60,10 +63,12 @@ function getDetailsActive(domain, pathname, tab) {
 const Tabs = ({ domain, pathname, parent, tab }) => {
   const { t } = useTranslation()
   const { name, state } = domain
+  const tld = globalUtils.getCurrentTld()
+
   return (
     (state !== 'Auction' || state !== 'Reveal') && (
       <TabContainer>
-        {parent === 'eth' && (
+        {parent === tld && (
           <TabLink
             active={
               (tab === 'register' || pathname === `/name/${name}/register`) &&

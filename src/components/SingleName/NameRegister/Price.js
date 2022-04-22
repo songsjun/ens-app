@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import mq from 'mediaQuery'
 import { InlineLoader } from 'components/Loader'
 import priceCalculator from './PriceCalculator'
+import { globalUtils } from 'globalUtils'
 
 const PriceContainer = styled('div')`
   width: 100%;
@@ -52,12 +53,17 @@ const Price = ({
   let ethPrice = <InlineLoader />
   let withPremium, c
 
+  console.log('是否需求域名价格', loading, price, ethUsdPrice)
+
   if (!loading && price && ethUsdPrice) {
     c = priceCalculator({
       price, // in ETH, BN
       premium: premiumOnlyPrice, // in ETH
       ethUsdPrice
     })
+
+    console.log('域名价格', c)
+
     ethPrice = c.price
     if (underPremium) {
       withPremium =
@@ -70,7 +76,7 @@ const Price = ({
   return (
     <PriceContainer>
       <Value>
-        {ethPrice} ETH
+        {ethPrice} {globalUtils.getCurrency()}
         {withPremium && (
           <USD>
             {withPremium}${priceInUsd}

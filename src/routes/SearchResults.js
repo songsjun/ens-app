@@ -19,6 +19,8 @@ import {
   NonMainPageBannerContainer,
   DAOBannerContent
 } from '../components/Banner/DAOBanner'
+import { globalUtils } from 'globalUtils'
+import { ensConfig } from 'ensConfig'
 
 const useCheckValidity = (_searchTerm, isENSReady) => {
   const [errors, setErrors] = useState([])
@@ -30,7 +32,14 @@ const useCheckValidity = (_searchTerm, isENSReady) => {
       setErrors([])
 
       if (_searchTerm.split('.').length === 1) {
-        searchTerm = _searchTerm + '.eth'
+        let tld = '.eth'
+        if (globalUtils.currentChainId > 0) {
+          const theConfig = ensConfig.ens[globalUtils.currentChainId]
+          if (theConfig) {
+            tld = '.' + theConfig.tld
+          }
+        }
+        searchTerm = _searchTerm + tld
       } else {
         searchTerm = _searchTerm
       }

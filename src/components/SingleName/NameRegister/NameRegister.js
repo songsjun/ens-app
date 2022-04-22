@@ -350,6 +350,9 @@ const NameRegisterDataWrapper = props => {
     console.log(error)
   }
   const { getMinimumCommitmentAge } = data
+
+  console.log('组件NameRegisterDataWrapper', props, getMinimumCommitmentAge)
+
   return <NameRegister waitTime={getMinimumCommitmentAge} {...props} />
 }
 

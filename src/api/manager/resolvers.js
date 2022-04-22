@@ -29,6 +29,8 @@ import getENS, { getRegistrar } from 'apollo/mutations/ens'
 import { isENSReadyReactive, namesReactive } from '../../apollo/reactiveVars'
 import getReverseRecord from './getReverseRecord'
 import { isEmptyAddress } from '../../utils/records'
+import { ensConfig } from 'ensConfig'
+import { globalUtils } from 'globalUtils'
 
 const defaults = {
   names: []
@@ -170,12 +172,25 @@ export const handleMultipleTransactions = async (
 
 async function getRegistrarEntry(name) {
   const registrar = getRegistrar()
+
+  console.log('getRegistrarEntry() registrar =', name, registrar)
+
   const nameArray = name.split('.')
-  if (nameArray.length > 3 || nameArray[1] !== 'eth') {
+
+  let tld = 'eth'
+  const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
+  if (theEnsConfig) {
+    tld = theEnsConfig.tld
+  }
+
+  if (nameArray.length > 3 || nameArray[1] !== tld) {
     return {}
   }
 
   const entry = await registrar.getEntry(nameArray[0])
+
+  console.log('entry =', entry)
+
   const {
     registrant,
     deedOwner,
@@ -236,6 +251,9 @@ async function getRegistrant(name) {
         queryDeduplication: false
       }
     })
+
+    console.log('getRegistrant()', name, labelhash(name.split('.')[0]), data)
+
     if (!data || !data.registration) {
       return null
     }

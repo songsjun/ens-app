@@ -15,6 +15,9 @@ const resolvers = {
     },
     async getEthPrice(_, {}) {
       const registrar = getRegistrar()
+
+      console.log('获取eth价格', registrar, await registrar.getEthPrice())
+
       return registrar.getEthPrice()
     },
     async getRentPrice(_, { label, duration }) {
