@@ -82,15 +82,18 @@ export const getProvider = async reconnect => {
       return provider
     }
 
-    // if (
-    //   window.localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') ||
-    //   reconnect
-    // ) {
-    //   provider = await connect()
-    //   return provider
-    // }
-    provider = await connect()
-    return provider
+    if (
+      window.localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') ||
+      reconnect
+    ) {
+      provider = await connect()
+      return provider
+    }
+
+    if (window.ethereum) {
+      await window.ethereum.request({ method: 'eth_requestAccounts' })
+      return window.ethereum
+    }
 
     const { providerObject } = await setup({
       reloadOnAccountsChange: false,
