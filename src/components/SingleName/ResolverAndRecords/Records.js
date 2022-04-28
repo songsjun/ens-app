@@ -75,8 +75,7 @@ import TEXT_PLACEHOLDER_RECORDS from '../../../constants/textRecords'
 import { validateRecord } from '../../../utils/records'
 import { asyncThrottle, usePrevious } from '../../../utils/utils'
 import { isEthSubdomain, requestCertificate } from './Certificate'
-
-const COIN_PLACEHOLDER_RECORDS = ['ETH', ...COIN_LIST.slice(0, 3)]
+import { globalUtils } from 'globalUtils'
 
 function isEmpty(record) {
   if (parseInt(record, 16) === 0) {
@@ -200,8 +199,11 @@ const getInitialContent = domain => {
 const getInitialCoins = dataAddresses => {
   const addresses =
     dataAddresses && dataAddresses.getAddresses
-      ? processRecords(dataAddresses.getAddresses, COIN_PLACEHOLDER_RECORDS)
-      : processRecords([], COIN_PLACEHOLDER_RECORDS)
+      ? processRecords(
+          dataAddresses.getAddresses,
+          globalUtils.getPlaceholderRecords()
+        )
+      : processRecords([], globalUtils.getPlaceholderRecords())
 
   return addresses?.map(address => ({
     contractFn: 'setAddr(bytes32,uint256,bytes)',
@@ -223,6 +225,8 @@ const getInitialTextRecords = (dataTextRecords, domain) => {
 }
 
 const getInitialRecords = (domain, dataAddresses, dataTextRecords) => {
+  console.log('getInitialRecords()', domain, dataAddresses, dataTextRecords)
+
   const initialTextRecords = getInitialTextRecords(dataTextRecords, domain)
   const initialCoins = getInitialCoins(dataAddresses)
   const initialContent = getInitialContent(domain)
@@ -230,10 +234,13 @@ const getInitialRecords = (domain, dataAddresses, dataTextRecords) => {
   return [...initialTextRecords, ...initialCoins, initialContent]
 }
 
-const getCoins = updatedRecords =>
-  updatedRecords
+const getCoins = updatedRecords => {
+  const result = updatedRecords
     .filter(record => record.contractFn === 'setAddr(bytes32,uint256,bytes)')
-    .sort(record => (record.key === 'ETH' ? -1 : 1))
+    .sort(record => (record.key === globalUtils.getCurrency() ? -1 : 1))
+  console.log('getCoins():', updatedRecords, result)
+  return result
+}
 
 const getContent = updatedRecords => {
   const content = updatedRecords.filter(

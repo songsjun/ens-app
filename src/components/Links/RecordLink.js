@@ -60,6 +60,8 @@ const OwnerLabel = styled('span')`
 `
 
 const RecordLink = ({ textKey, value, name }) => {
+  console.log('RecordLink()', textKey, value, name)
+
   let url
   const { network } = useNetworkInfo()
   switch (textKey) {

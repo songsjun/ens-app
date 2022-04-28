@@ -294,7 +294,8 @@ function DetailsContainer({
               copyToClipboard={true}
             />
           </>
-        ) : domain.parent === 'eth' && !domain.isNewRegistrar ? (
+        ) : domain.parent === globalUtils.getCurrentTld() &&
+          !domain.isNewRegistrar ? (
           <>
             <DetailsItem uneditable>
               <DetailsKey>{t('c.registrant')}</DetailsKey>
