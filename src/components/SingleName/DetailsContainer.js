@@ -29,6 +29,7 @@ import DefaultButton from '../Forms/Button'
 import DefaultAddressLink from '../Links/AddressLink'
 
 import { ReactComponent as DefaultOrangeExclamation } from '../Icons/OrangeExclamation.svg'
+import { globalUtils } from 'globalUtils'
 
 const Details = styled('section')`
   padding: 20px;
@@ -260,7 +261,8 @@ function DetailsContainer({
         </GracePeriodWarningContainer>
       )}
       <OwnerFields outOfSync={outOfSync}>
-        {domain.parent === 'eth' && domain.isNewRegistrar ? (
+        {domain.parent === globalUtils.getCurrentTld() &&
+        domain.isNewRegistrar ? (
           <>
             <DetailsItemEditable
               domain={domain}

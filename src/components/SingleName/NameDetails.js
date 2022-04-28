@@ -47,7 +47,14 @@ function NameDetails({
   const isParentMigratedToNewRegistry = isParentMigrated
 
   const isDeedOwner = domain.deedOwner === account
+
+  console.log(
+    'domain.available, domain.registrant =',
+    domain.available,
+    domain.registrant
+  )
   const isRegistrant = !domain.available && domain.registrant === account
+
   let dnssecmode, canSubmit
   if ([5, 6].includes(domain.state) && !isMigrated) {
     dnssecmode = dnssecmodes[7]
