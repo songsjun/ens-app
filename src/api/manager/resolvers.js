@@ -363,7 +363,9 @@ const resolvers = {
     publicResolver: async () => {
       try {
         const ens = getENS()
-        const resolver = await ens.getAddress('resolver.eth')
+        const resolver = await ens.getAddress(
+          'resolver.' + globalUtils.getCurrentTld()
+        )
         return {
           address: resolver,
           __typename: 'Resolver'
