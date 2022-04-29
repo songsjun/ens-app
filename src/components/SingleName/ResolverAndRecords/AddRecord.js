@@ -14,6 +14,7 @@ import DetailsItemInput from '../DetailsItemInput'
 import DefaultSelect from '../../Forms/Select'
 import DefaultAddressInput from '@ensdomains/react-ens-address'
 import { asyncThrottle } from 'utils/utils'
+import { globalUtils } from 'globalUtils'
 
 const AddressInput = styled(DefaultAddressInput)`
   margin-bottom: 10px;
@@ -137,12 +138,13 @@ const textRecordOptions = TEXT_RECORD_KEYS.slice()
     label: key,
     value: key
   }))
-const coinOptions = COIN_LIST.slice()
-  .sort()
-  .map(key => ({
-    label: key,
-    value: key
-  }))
+
+// const coinOptions = COIN_LIST.slice()
+//   .sort()
+//   .map(key => ({
+//     label: key,
+//     value: key
+//   }))
 
 const clearInput = (setSelectedRecord, setSelectedKey, updateValue) => {
   setSelectedRecord(null)
@@ -215,6 +217,7 @@ function Editable({
   const [selectedKey, setSelectedKey] = useState(null)
   const [isValid, setIsValid] = useState(false)
   const [isValidating, setIsValidating] = useState(false)
+  const [coinOptions, setCoinOptions] = useState([])
 
   const handleChange = selectedRecord => {
     if (selectedRecord.contractFn === 'setContenthash') {
@@ -244,6 +247,11 @@ function Editable({
     setIsValidating,
     setIsValid
   )
+
+  useEffect(() => {
+    setCoinOptions(globalUtils.getCoinOptions())
+    console.log('coinOptions =', coinOptions)
+  }, [])
 
   return (
     <>

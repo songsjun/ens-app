@@ -21,10 +21,40 @@ export const globalUtils = {
   },
   getPlaceholderRecords: function() {
     const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
+
+    console.log(
+      'globalUtils.getPlaceholderRecords()',
+      globalUtils.currentChainId,
+      theEnsConfig
+    )
+
     if (theEnsConfig) {
       return theEnsConfig.placeholderRecords
     } else {
       return ['ETH', ...COIN_LIST.slice(0, 3)]
+    }
+  },
+  getCoinOptions: function() {
+    const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
+
+    console.log(
+      'globalUtils.getCoinOptions()',
+      globalUtils.currentChainId,
+      theEnsConfig
+    )
+
+    if (theEnsConfig) {
+      return theEnsConfig.placeholderRecords.sort().map(key => ({
+        label: key,
+        value: key
+      }))
+    } else {
+      return COIN_LIST.slice()
+        .sort()
+        .map(key => ({
+          label: key,
+          value: key
+        }))
     }
   },
   getBlockExplorer: function(subdomain) {
