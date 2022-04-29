@@ -86,14 +86,19 @@ export const handleSingleTransaction = async (
 
   if (record.contractFn === 'setAddr(bytes32,uint256,bytes)') {
     const coinRecord = record
-    const { decoder, coinType } = formatsByName[coinRecord.key]
+    const { coinType } = formatsByName[coinRecord.key]
+    const decoder = globalUtils.getDecoder()
     let addressAsBytes
 
     // use 0x00... for ETH because an empty string throws
-    if (coinRecord.key === 'ETH' && coinRecord.value === '') {
+    if (
+      coinRecord.key === globalUtils.getCurrency() &&
+      coinRecord.value === ''
+    ) {
       coinRecord.value = emptyAddress
     }
 
+    console.log('coinRecord.value =', coinRecord.value)
     if (!coinRecord.value || coinRecord.value === '') {
       addressAsBytes = Buffer.from('')
     } else {

@@ -122,6 +122,7 @@ function normaliseAddress(address) {
 }
 
 function decryptNames(domains) {
+  console.log('decryptNames()', domains)
   return domains.map(d => {
     const name = decryptName(d.domain.name)
     return {

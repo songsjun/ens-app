@@ -1,3 +1,5 @@
+import { formatsByName } from '@ensdomains/address-encoder'
+
 export const ensConfig = {
   ens: {
     '20': {
@@ -8,7 +10,8 @@ export const ensConfig = {
       blockExplorer: {
         subdomain: 'eth',
         domain: 'elastos.io'
-      }
+      },
+      decoder: formatsByName['ETH'].decoder
     }
   }
 }

@@ -1,3 +1,4 @@
+import { formatsByName } from '@ensdomains/address-encoder'
 import COIN_LIST from 'constants/coinList'
 import { ensConfig } from 'ensConfig'
 
@@ -66,6 +67,14 @@ export const globalUtils = {
         subdomain,
         domain: 'etherscan.io'
       }
+    }
+  },
+  getDecoder: function() {
+    const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
+    if (theEnsConfig) {
+      return theEnsConfig.decoder
+    } else {
+      return formatsByName['ETH'].decoder
     }
   }
 }
