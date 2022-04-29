@@ -64,6 +64,7 @@ const Title = styled(DefaultTitle)`
 const EtherScanLink = styled(DefaultEtherScanLink)`
   min-width: 165px;
   margin-left: auto;
+  text-transform: capitalize;
 `
 
 const Close = styled('img')`

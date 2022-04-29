@@ -3,6 +3,7 @@ import styled from '@emotion/styled/macro'
 import { ReactComponent as ExternalLinkIcon } from '../Icons/externalLink.svg'
 import { gql } from '@apollo/client'
 import { useQuery } from '@apollo/client'
+import { globalUtils } from 'globalUtils'
 
 const EtherScanLinkContainer = styled('a')`
   display: inline-block;
@@ -33,13 +34,17 @@ const EtherScanLink = ({ children, address, className }) => {
   const {
     data: { network }
   } = useQuery(GET_ETHER_SCAN_LINK)
-  const subdomain = network?.toLowerCase() === 'main' ? '' : `${network}.`
+  const explorer = globalUtils.getBlockExplorer(
+    network?.toLowerCase() === 'main' ? '' : network
+  )
   return (
     <EtherScanLinkContainer
       data-testid="ether-scan-link-container"
       target="_blank"
       rel="noopener"
-      href={`https://${subdomain}etherscan.io/address/${address}`}
+      href={`https://${explorer.subdomain ? explorer.subdomain + '.' : ''}${
+        explorer.domain
+      }/address/${address}`}
       className={className}
     >
       {children}

@@ -203,6 +203,8 @@ function AddReverseRecord({ account, currentAddress }) {
     ).map(d => {
       return { value: d, label: d }
     })
+
+    console.log('options =', currentAddress, domains, options)
   }
 
   function handleSelect(e) {

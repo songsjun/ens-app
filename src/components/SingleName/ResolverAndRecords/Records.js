@@ -121,6 +121,8 @@ function isContentHashEmpty(hash) {
 }
 
 const useGetRecords = domain => {
+  console.log('useGetRecords()', domain, getNamehash(domain.name))
+
   const { data: dataResolver } = useQuery(GET_RESOLVER_FROM_SUBGRAPH, {
     variables: {
       id: getNamehash(domain.name)

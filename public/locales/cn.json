@@ -1,6 +1,6 @@
 {
   "address": {
-    "etherscanButton": "在 Etherscan 上查看",
+    "etherscanButton": "在区块浏览器里查看",
     "filter": {
       "controller": "管理员",
       "registrant": "注册人"

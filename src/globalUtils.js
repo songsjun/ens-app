@@ -26,5 +26,16 @@ export const globalUtils = {
     } else {
       return ['ETH', ...COIN_LIST.slice(0, 3)]
     }
+  },
+  getBlockExplorer: function(subdomain) {
+    const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
+    if (theEnsConfig) {
+      return theEnsConfig.blockExplorer
+    } else {
+      return {
+        subdomain,
+        domain: 'etherscan.io'
+      }
+    }
   }
 }
