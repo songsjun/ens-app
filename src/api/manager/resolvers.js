@@ -288,6 +288,8 @@ async function setDNSSECTldOwner(ens, tld, networkId) {
 }
 
 async function getDNSEntryDetails(name) {
+  console.log('获取DNS相关')
+
   const ens = getENS()
   const registrar = getRegistrar()
   const nameArray = name.split('.')

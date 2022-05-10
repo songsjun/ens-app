@@ -199,6 +199,9 @@ const NameRegister = ({
     dnssecmode.state || registerMachine.initialState
   )
   const incrementStep = () => dispatch('NEXT')
+
+  console.error('step', step, domain.dnsOwner)
+
   const content = getContent(step, account, domain.dnsOwner, t)
   const errorMessage =
     dnssecmode.displayError && (domain.stateError || dnssecmode.title)
