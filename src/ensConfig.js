@@ -11,7 +11,8 @@ export const ensConfig = {
         subdomain: 'eth',
         domain: 'elastos.io'
       },
-      decoder: formatsByName['ETH'].decoder
+      decoder: formatsByName['ETH'].decoder,
+      dnsRegistrar: '0x6A489732c0fd78940759cde49fb24d6FEBA6AecB'
     }
   }
 }

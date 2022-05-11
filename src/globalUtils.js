@@ -1,6 +1,7 @@
 import { formatsByName } from '@ensdomains/address-encoder'
 import COIN_LIST from 'constants/coinList'
 import { ensConfig } from 'ensConfig'
+import { EMPTY_ADDRESS } from 'utils/records'
 
 export const globalUtils = {
   currentChainId: 0,
@@ -75,6 +76,14 @@ export const globalUtils = {
       return theEnsConfig.decoder
     } else {
       return formatsByName['ETH'].decoder
+    }
+  },
+  getDNSRegistrar: function() {
+    const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
+    if (theEnsConfig) {
+      return theEnsConfig.dnsRegistrar
+    } else {
+      return EMPTY_ADDRESS
     }
   }
 }

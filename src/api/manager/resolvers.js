@@ -283,7 +283,7 @@ async function setDNSSECTldOwner(ens, tld, networkId) {
     case 3:
       return ROPSTEN_DNSREGISTRAR_ADDRESS
     default:
-      return emptyAddress
+      return globalUtils.getDNSRegistrar()
   }
 }
 
