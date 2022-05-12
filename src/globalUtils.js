@@ -2,6 +2,7 @@ import { formatsByName } from '@ensdomains/address-encoder'
 import COIN_LIST from 'constants/coinList'
 import { ensConfig } from 'ensConfig'
 import { EMPTY_ADDRESS } from 'utils/records'
+import TEXT_RECORD_KEYS from './constants/textRecords'
 
 export const globalUtils = {
   currentChainId: 0,
@@ -85,5 +86,12 @@ export const globalUtils = {
     } else {
       return EMPTY_ADDRESS
     }
+  },
+  getTextRecordsKeys: function(name) {
+    let keys = TEXT_RECORD_KEYS
+    if (!keys.includes(name)) {
+      keys.push(name)
+    }
+    return keys
   }
 }

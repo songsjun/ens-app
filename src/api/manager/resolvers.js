@@ -21,7 +21,6 @@ import {
   MAINNET_DNSREGISTRAR_ADDRESS,
   ROPSTEN_DNSREGISTRAR_ADDRESS
 } from '../../utils/utils'
-import TEXT_RECORD_KEYS from 'constants/textRecords'
 import COIN_LIST_KEYS from 'constants/coinList'
 import { GET_REGISTRANT_FROM_SUBGRAPH } from '../../graphql/queries'
 import getClient from '../../apollo/apolloClient'
@@ -857,17 +856,19 @@ const resolvers = {
       }
 
       async function getAllTextRecords(name) {
-        const promises = TEXT_RECORD_KEYS.map(key => ens.getText(name, key))
+        const keys = globalUtils.getTextRecordsKeys(name)
+        const promises = keys.map(key => ens.getText(name, key))
         const records = await Promise.all(promises)
-        return buildKeyValueObjects(TEXT_RECORD_KEYS, records)
+        return buildKeyValueObjects(keys, records)
       }
 
       async function getAllTextRecordsWithResolver(name, resolver) {
-        const promises = TEXT_RECORD_KEYS.map(key =>
+        const keys = globalUtils.getTextRecordsKeys(name)
+        const promises = keys.map(key =>
           ens.getTextWithResolver(name, key, resolver)
         )
         const records = await Promise.all(promises)
-        return buildKeyValueObjects(TEXT_RECORD_KEYS, records)
+        return buildKeyValueObjects(keys, records)
       }
 
       async function getAllAddresses(name) {

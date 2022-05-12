@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next'
 
 import { validateRecord, getPlaceholder } from '../../../utils/records'
 import { useEditable } from '../../hooks'
-import TEXT_RECORD_KEYS from 'constants/textRecords'
-import COIN_LIST from 'constants/coinList'
 
 import Button from '../../Forms/Button'
 import { DetailsKey } from '../DetailsItem'
@@ -132,13 +130,6 @@ const AddRecordButton = styled('div')`
   justify-content: flex-end;
 `
 
-const textRecordOptions = TEXT_RECORD_KEYS.slice()
-  .sort()
-  .map(key => ({
-    label: key,
-    value: key
-  }))
-
 // const coinOptions = COIN_LIST.slice()
 //   .sort()
 //   .map(key => ({
@@ -218,6 +209,15 @@ function Editable({
   const [isValid, setIsValid] = useState(false)
   const [isValidating, setIsValidating] = useState(false)
   const [coinOptions, setCoinOptions] = useState([])
+
+  const textRecordOptions = globalUtils
+    .getTextRecordsKeys(domain.name)
+    .slice()
+    .sort()
+    .map(key => ({
+      label: key,
+      value: key
+    }))
 
   const handleChange = selectedRecord => {
     if (selectedRecord.contractFn === 'setContenthash') {

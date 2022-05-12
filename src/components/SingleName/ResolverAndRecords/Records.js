@@ -71,7 +71,7 @@ const RECORDS = [
     contractFn: 'setText'
   }
 ]
-import TEXT_PLACEHOLDER_RECORDS from '../../../constants/textRecords'
+
 import { validateRecord } from '../../../utils/records'
 import { asyncThrottle, usePrevious } from '../../../utils/utils'
 import { isEthSubdomain, requestCertificate } from './Certificate'
@@ -214,10 +214,11 @@ const getInitialCoins = dataAddresses => {
 }
 
 const getInitialTextRecords = (dataTextRecords, domain) => {
+  const keys = globalUtils.getTextRecordsKeys(domain.name)
   const textRecords =
     dataTextRecords && dataTextRecords.getTextRecords
-      ? processRecords(dataTextRecords.getTextRecords, TEXT_PLACEHOLDER_RECORDS)
-      : processRecords([], TEXT_PLACEHOLDER_RECORDS)
+      ? processRecords(dataTextRecords.getTextRecords, keys)
+      : processRecords([], keys)
 
   return textRecords?.map(textRecord => ({
     addr: domain.addr,
