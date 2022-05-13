@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled/macro'
@@ -20,6 +20,7 @@ import {
   MainPageBannerContainer,
   DAOBannerContent
 } from '../components/Banner/DAOBanner'
+import { globalUtils } from 'globalUtils'
 
 const HeroTop = styled('div')`
   display: grid;
@@ -300,6 +301,7 @@ const animation = {
 export default ({ match }) => {
   const { url } = match
   const { t } = useTranslation()
+  const [banners, setBanners] = useState(null)
 
   const {
     data: { accounts }
@@ -310,6 +312,24 @@ export default ({ match }) => {
   } = useQuery(HOME_DATA, {
     variables: { address: accounts?.[0] }
   })
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      const banners = await globalUtils.getBanners()
+      const now = new Date()
+      if (
+        banners &&
+        new Date(banners.start) < now &&
+        new Date(banners.end) > now
+      ) {
+        setBanners(banners)
+      }
+    }
+
+    setTimeout(() => {
+      fetchBanners()
+    }, 3000)
+  }, [])
 
   return (
     <Hero>
@@ -341,9 +361,12 @@ export default ({ match }) => {
           <NavLink to="/favourites">{t('c.favourites')}</NavLink>
           <ExternalLink href={aboutPageURL()}>{t('c.about')}</ExternalLink>
         </Nav>
-        <MainPageBannerContainer>
-          <DAOBannerContent />
-        </MainPageBannerContainer>
+
+        {banners && new Date(banners.end) > new Date() && (
+          <MainPageBannerContainer>
+            <DAOBannerContent banners={banners} />
+          </MainPageBannerContainer>
+        )}
       </HeroTop>
       <SearchContainer>
         <>

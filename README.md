@@ -1,4 +1,4 @@
-# 部署说明
+## 部署说明
 
 1. checkout out `https://github.com/siyushin/ui` 与当前项目在同一级目录
 2. 进入`../ui`，执行：
@@ -17,3 +17,7 @@ yarn install
 yarn run
 yarn build
 ```
+
+## 运营相关
+
+1. `/d/banners.json`是首页通知栏内容。

@@ -93,5 +93,9 @@ export const globalUtils = {
       keys.push(name)
     }
     return keys
+  },
+  getBanners: async function() {
+    const response = await (await fetch('/d/banners.json')).json()
+    return response[globalUtils.currentChainId]
   }
 }

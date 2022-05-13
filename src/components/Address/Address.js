@@ -43,10 +43,10 @@ import close from '../../assets/close.svg'
 import { useBlock } from '../hooks'
 import { globalErrorReactive } from '../../apollo/reactiveVars'
 import { gql } from '@apollo/client'
-import {
-  NonMainPageBannerContainerWithMarginBottom,
-  DAOBannerContent
-} from '../Banner/DAOBanner'
+// import {
+//   NonMainPageBannerContainerWithMarginBottom,
+//   DAOBannerContent
+// } from '../Banner/DAOBanner'
 
 const DEFAULT_RESULTS_PER_PAGE = 25
 
@@ -320,9 +320,9 @@ export default function Address({
 
   return (
     <>
-      <NonMainPageBannerContainerWithMarginBottom>
+      {/* <NonMainPageBannerContainerWithMarginBottom>
         <DAOBannerContent />
-      </NonMainPageBannerContainerWithMarginBottom>
+      </NonMainPageBannerContainerWithMarginBottom> */}
 
       {showOriginBanner && showOriginBannerFlag && (
         <Banner>

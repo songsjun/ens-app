@@ -108,33 +108,17 @@ const SHOULD_DELEGATE_QUERY = gql`
   }
 `
 
-export function DAOBannerContent() {
-  const {
-    data: { shouldDelegate }
-  } = useQuery(SHOULD_DELEGATE_QUERY)
+export function DAOBannerContent(props) {
+  // const {
+  //   data: { shouldDelegate }
+  // } = useQuery(SHOULD_DELEGATE_QUERY)
 
   return (
-    <Link
-      target="_blank"
-      rel="noreferrer"
-      href={
-        shouldDelegate
-          ? 'https://claim.ens.domains/delegate-ranking'
-          : 'https://ens.mirror.xyz/5cGl-Y37aTxtokdWk21qlULmE1aSM_NuX9fstbOPoWU'
-      }
-    >
+    <Link target="_blank" rel="noreferrer" href={props.banners.target}>
       <LogoSmall src={ENSIcon} alt="ENS logo" />
       <BannerContentWrapper>
-        <BannerTitle>
-          {shouldDelegate
-            ? 'Your ENS Tokens are undelegated'
-            : '$ENS Now Available for Claiming'}
-        </BannerTitle>
-        <BannerContent>
-          {shouldDelegate
-            ? `Participate more actively in ENS governance by delegating your voting rights to a community member`
-            : 'If you owned an ENS name before October 31st 2021, you can claim $ENS and participate in ENS governance.'}
-        </BannerContent>
+        <BannerTitle>{props.banners.title}</BannerTitle>
+        <BannerContent>{props.banners.content}</BannerContent>
       </BannerContentWrapper>
       <ArrowSmall src={Arrow} alt="Arrow right icon" />
     </Link>

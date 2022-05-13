@@ -68,6 +68,8 @@ const useCheckValidity = (_searchTerm, isENSReady) => {
 }
 
 const ResultsContainer = ({ searchDomain, match }) => {
+  const [banners, setBanners] = useState(null)
+
   const {
     data: { isENSReady }
   } = useQuery(RESULTS_CONTAINER)
@@ -77,6 +79,22 @@ const ResultsContainer = ({ searchDomain, match }) => {
   if (history && lowered !== searchTerm) {
     history.push(`/search/${lowered}`)
   }
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      const banners = await globalUtils.getBanners()
+      const now = new Date()
+      if (
+        banners &&
+        new Date(banners.start) < now &&
+        new Date(banners.end) > now
+      ) {
+        setBanners(banners)
+      }
+    }
+
+    fetchBanners()
+  }, [])
 
   const { errors, parsed } = useCheckValidity(searchTerm, isENSReady)
 
@@ -96,9 +114,12 @@ const ResultsContainer = ({ searchDomain, match }) => {
   if (parsed) {
     return (
       <>
-        <NonMainPageBannerContainer>
-          <DAOBannerContent />
-        </NonMainPageBannerContainer>
+        {banners && (
+          <NonMainPageBannerContainer>
+            <DAOBannerContent banners={banners} />
+          </NonMainPageBannerContainer>
+        )}
+
         <H2>
           <Trans i18nKey="singleName.search.title">Names</Trans>
         </H2>
