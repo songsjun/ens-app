@@ -5,6 +5,7 @@ import { EMPTY_ADDRESS } from 'utils/records'
 import TEXT_RECORD_KEYS from './constants/textRecords'
 
 export const globalUtils = {
+  DNS_RECORDS: ['@A', '@MX', '@CNAME'],
   currentChainId: 0,
   getCurrentTld: function() {
     const theEnsConfig = ensConfig.ens[globalUtils.currentChainId]
@@ -89,9 +90,12 @@ export const globalUtils = {
   },
   getTextRecordsKeys: function(name) {
     let keys = TEXT_RECORD_KEYS
-    if (!keys.includes(name)) {
-      keys.push(name)
-    }
+    const dnsRecords = this.DNS_RECORDS
+    dnsRecords.map(dnsRecord => {
+      if (!keys.includes(name + dnsRecord)) {
+        keys.push(name + dnsRecord)
+      }
+    })
     return keys
   },
   getBanners: async function() {

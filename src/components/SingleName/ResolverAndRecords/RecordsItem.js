@@ -79,8 +79,7 @@ export const RecordsSubKey = styled('div')`
 
   ${mq.small`
     font-size: 16px;
-    max-width: 220px;
-    min-width: 180px;
+    width: 250px;
   `}
 `
 
