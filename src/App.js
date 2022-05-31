@@ -113,6 +113,7 @@ const App = () => {
   }, [])
 
   if (globalError.network) {
+    console.error(globalError)
     return <NetworkError message={globalError.network} />
   }
 

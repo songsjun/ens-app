@@ -14,7 +14,7 @@ yarn link
 ```shell
 yarn link @ensdomains/ui
 yarn install
-yarn run
+yarn ready
 yarn build
 ```
 
