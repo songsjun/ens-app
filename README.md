@@ -1,6 +1,6 @@
 ## 部署说明
 
-1. checkout out `https://github.com/siyushin/ui` 与当前项目在同一级目录
+1. checkout out `https://github.com/siyushin/ui/tree/features` 与当前项目在同一级目录
 2. 进入`../ui`，执行：
 
 ```shell
