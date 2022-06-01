@@ -22,7 +22,9 @@ const endpoints = {
   '3': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensropsten',
   '4': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensrinkeby',
   '5': 'https://api.thegraph.com/subgraphs/name/ensdomains/ensgoerli',
-  '20': 'https://graph.dns3.xyz/subgraphs/name/graphprotocol/ens'
+  '20': 'https://graph.dns3.xyz/subgraphs/name/graphprotocol/ens',
+  '80001': 'http://localhost',
+  '97': 'http://localhost'
   // '20': 'http://127.0.0.1:8000/subgraphs/name/graphprotocol/ens'
 }
 
